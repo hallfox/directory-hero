@@ -8,6 +8,9 @@ from kivy.config import Config
 from kivy.app import App
 
 import os
+import re
+
+map_regs = {"Dir":"^[^.]+$", "File":"^.*\..+$"}
 
 class Dir(Label, TreeViewNode):
 	def __init__(self, name):
@@ -29,24 +32,37 @@ class File(Button, TreeViewNode):
 class DirectoryHeroApp(App):
 	def build(self):
 		self.title = "Directory Hero"
+
+		os.chdir("C:\\Users\\Taylor\\repos\\directory-hero")
 		
 		# create the directory tree
-		tree = TreeView()
-		tree.bind(minimum_height=tree.setter('height'))
+		self.tree = TreeView()
+		self.tree.bind(minimum_height=self.tree.setter('height'))
 		
-		d = Dir("dir")
-		
-		tree.add_node(d)
-		tree.add_node(File("file", "hello"), d)
-		tree.add_node(Dir("dir"))		
+		self.load_map("Tutorial")		
 		
 		view = ScrollView(do_scroll_x=False)
-		view.add_widget(tree)
+		view.add_widget(self.tree)
 		
-		return tree	
+		return view
+	def load_map(self, map):
+		self._recurse("maps"+os.sep+map, None)
+	def _recurse(self, path, parent):	
+		for item in os.listdir(path):
+			node = self.build_item(item, path)
+			self.tree.add_node(node, parent)
+			if isinstance(node, Dir):
+				self._recurse(path+os.sep+item, node)
+	def build_item(self, item, path):
+		if re.match(map_regs["Dir"], item):
+			node = Dir(item)
+		elif re.match(map_regs["File"], item):
+			with open(path+os.sep+item) as f:
+				data = f.read()
+			node = File(item, data)
+		else:
+			raise NameError(item)
+		return node
 		
-	def populate_tree_view(tree_view, parent, node):
-		pass
-
 if __name__ == "__main__":
 	DirectoryHeroApp().run()
