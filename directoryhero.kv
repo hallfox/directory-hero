@@ -1,0 +1,22 @@
+<GameView>:
+	orientation:'horizontal'
+	ScrollView:
+		do_scroll_x:False
+		TreeView:
+			id: tree
+	GridLayout:
+		cols: 1
+		rows: 3
+		padding:[20,20,20,20]
+		Label:
+			size_hint_y: None
+			height: 25
+			font_size:20
+			text:"Answer:"
+		TextInput:
+			id:input
+			size_hint_y: None
+			height: 40
+			font_size: 20
+			text:''
+			multiline:False

@@ -3,6 +3,9 @@ from kivy.uix.treeview import TreeView, TreeViewNode
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
+from kivy.uix.gridlayout import GridLayout
 
 from kivy.config import Config
 from kivy.app import App
@@ -14,12 +17,12 @@ map_regs = {"Dir":"^[^.]+$", "File":"^.*\..+$"}
 
 class Dir(Label, TreeViewNode):
 	def __init__(self, name):
-		super().__init__(size_hint_y=None, height=40, text=name)
+		super().__init__(size_hint_y=None, height=45, text=name)
 		self.name = name
 	
 class File(Button, TreeViewNode):
 	def __init__(self, name, data=""):
-		super().__init__(size_hint_y=None, height=40, text=name)
+		super().__init__(size_hint_y=None, height=45, text=name)
 		self.name = name
 		self.data = data
 	
@@ -29,28 +32,13 @@ class File(Button, TreeViewNode):
 						size_hint=(.5,.5))
 		popup.open()
 		
-class DirectoryHeroApp(App):
-	def build(self):
-		self.title = "Directory Hero"
-
-		os.chdir("C:\\Users\\Taylor\\repos\\directory-hero")
-		
-		# create the directory tree
-		self.tree = TreeView()
-		self.tree.bind(minimum_height=self.tree.setter('height'))
-		
-		self.load_map("Tutorial")		
-		
-		view = ScrollView(do_scroll_x=False)
-		view.add_widget(self.tree)
-		
-		return view
+class GameView(BoxLayout):
 	def load_map(self, map):
 		self._recurse("maps"+os.sep+map, None)
 	def _recurse(self, path, parent):	
 		for item in os.listdir(path):
 			node = self.build_item(item, path)
-			self.tree.add_node(node, parent)
+			self.ids['tree'].add_node(node, parent)
 			if isinstance(node, Dir):
 				self._recurse(path+os.sep+item, node)
 	def build_item(self, item, path):
@@ -63,6 +51,23 @@ class DirectoryHeroApp(App):
 		else:
 			raise NameError(item)
 		return node
+		
+class DirectoryHeroApp(App):
+	def build(self):
+		self.title = "Directory Hero"
+		
+		#not sure how to deal with a generic location yet
+		os.chdir("C:\\Users\\Taylor\\repos\\directory-hero")
+		
+		game = GameView()
+		
+		# create the directory tree
+		tree = game.ids['tree']
+		tree.bind(minimum_height=tree.setter('height'))
+		game.load_map("Tutorial")
+		
+		return game
+	
 		
 if __name__ == "__main__":
 	DirectoryHeroApp().run()
