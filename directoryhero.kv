@@ -20,3 +20,17 @@
 			font_size: 20
 			text:''
 			multiline:False
+			on_text_validate: root.check()
+
+<Hidden>:
+	cols:2
+	rows:1
+	Label:
+		text:"Enter password:"
+		size_hint_x:0.3
+	TextInput:
+		id:password
+		size_hint_x:0.7
+		multiline:False
+		font_size: 20
+		on_text_validate: root.check()
