@@ -1,0 +1,5 @@
+Welcome to the maze.
+
+You are lost.
+
+Find the password to get out.

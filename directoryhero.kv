@@ -1,36 +1,49 @@
 <GameView>:
-	orientation:'horizontal'
+	orientation: 'vertical'
 	ScrollView:
+		size_hint_y: 0.87
 		do_scroll_x:False
 		TreeView:
 			id: tree
-	GridLayout:
-		cols: 1
-		rows: 3
-		padding:[20,20,20,20]
-		Label:
 			size_hint_y: None
-			height: 25
+
+	GridLayout:
+		size_hint_y: 0.13
+		cols: 3
+		rows: 1
+		padding:[20,20,20,20]
+		spacing: [5, 0]
+		Label:
+			size_hint_x: 0.2
 			font_size:20
 			text:"Answer:"
 		TextInput:
 			id:input
-			size_hint_y: None
-			height: 40
+			size_hint_x: 0.6
 			font_size: 20
 			text:''
 			multiline:False
 			on_text_validate: root.check()
+		Button:
+			id: submit
+			size_hint_x: 0.2
+			font_size: 20
+			text: "Submit"
+			on_release: root.check()
 
 <Hidden>:
-	cols:2
+	cols:3
 	rows:1
 	Label:
-		text:"Enter password:"
+		text:"Password:"
 		size_hint_x:0.3
 	TextInput:
 		id:password
-		size_hint_x:0.7
+		size_hint_x:0.5
 		multiline:False
 		font_size: 20
 		on_text_validate: root.check()
+	Button:
+		size_hint_x: 0.2
+		text: "Unlock"
+		on_release: root.check()
