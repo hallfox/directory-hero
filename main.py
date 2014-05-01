@@ -19,9 +19,9 @@ kivy.require('1.8.0')
 
 #NEVER EVER TOUCH THESE
 map_regs = {"Dir":"^[^.]+$", "File":"^.+\..+$", "Hidden":"^\..+$"}
-MAPS = ["Tutorial", "Rot13", "Alphabeta"]
+MAPS = ["Tutorial", "Paths", "Rot13", "Alphabeta", "Binary", "Mathz"]
 MAP_IDX = -1
-PASSWORDS = {"Tutorial":"1337", "Rot13":"tang", "Alphabeta":"phoenix"}
+PASSWORDS = {"Tutorial":"password", "Rot13":"tang", "Alphabeta":"phoenix", "Mathz": "1337", "Paths":"gray", "Binary":"secretbe"}
 
 class Dir(Label, TreeViewNode):
 	def __init__(self, name):
