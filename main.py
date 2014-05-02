@@ -19,9 +19,9 @@ kivy.require('1.8.0')
 
 #NEVER EVER TOUCH THESE
 map_regs = {"Dir":"^[^.]+$", "File":"^.+\..+$", "Hidden":"^\..+$"}
-MAPS = ["Tutorial", "Paths", "Rot13", "Alphabeta", "Binary", "Mathz"]
+MAPS = ["Tutorial", "Paths", "Rot13", "Alphabeta", "Binary", "Mathz", "Montague", "Endgame"]
 MAP_IDX = -1
-PASSWORDS = {"Tutorial":"password", "Rot13":"tang", "Alphabeta":"phoenix", "Mathz": "1337", "Paths":"gray", "Binary":"secretbe"}
+PASSWORDS = {"Tutorial":"password", "Rot13":"tang", "Alphabeta":"phoenix", "Mathz": "1337", "Paths":"gray", "Binary":"secretbe", "Montague": "b", "Endgame":"?"}
 
 class Dir(Label, TreeViewNode):
 	def __init__(self, name):
@@ -39,7 +39,7 @@ class File(Button, TreeViewNode):
 	def on_release(self):
 		popup = Popup(title=self.name,
 						content=Label(text=self.data),
-						size_hint=(.5,.5))
+						size_hint=(.6,.8))
 		popup.open()
 
 class Hidden(GridLayout, TreeViewNode):

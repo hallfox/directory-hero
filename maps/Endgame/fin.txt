@@ -1,0 +1,17 @@
+Written by Taylor Foxhall
+
+Written in Python3.3 using Kivy1.8.0
+
+The levels:
+
+"Tutorial"
+"Paths"
+"Rot13"
+"Alphabeta"
+"Binary"
+"Mathz"
+"Montague"
+
+Thanks for playing!
+
+(I personally apologize for that last one.)
